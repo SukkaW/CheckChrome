@@ -1,15 +1,14 @@
 language: node_js
+os: Linux
 node_js:
   - "10"
-sudo: enabled
 dist: xenial
-install:
-  - curl -sL https://noc.one/ubuntu | bash
-  - sudo sed -i 's|http://|https://|g' /etc/apt/sources.list
-  - sudo sed -i 's|http://|https://|g' /etc/apt/sources.list.d/*.list
-  - sudo apt-get clean
-  - sudo apt-get update || true
-  - sudo apt-get -y install libxml2-utils
+
 script:
   - chmod +x ./run.sh
   - ./run.sh
+addons:
+  apt:
+    packages:
+      # Needed for `xmllint`.
+      - libxml2-utils
